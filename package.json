@@ -1,17 +1,66 @@
 {
   "name": "dapp-token-sale",
-  "version": "1.0.0",
-  "description": "Dapp Token Sale ICO",
-  "main": "truffle.js",
-  "directories": {
-    "test": "test"
+  "version": "2.0.0",
+  "private": true,
+  "type": "module",
+  "description": "A local-first Ethereum token sale built with Hardhat, OpenZeppelin and React.",
+  "license": "ISC",
+  "engines": {
+    "node": ">=22.13.0"
   },
   "scripts": {
-    "dev": "lite-server"
+    "dev": "node scripts/dev.mjs",
+    "chain": "hardhat node --hostname 0.0.0.0 --port 8545",
+    "deploy:local": "hardhat run scripts/deploy.ts --network localhost",
+    "web": "vite --host 0.0.0.0",
+    "compile": "hardhat compile",
+    "test": "hardhat test",
+    "test:ui": "vitest run",
+    "test:e2e": "playwright test",
+    "typecheck": "tsc --noEmit -p tsconfig.json && tsc --noEmit -p frontend/tsconfig.json",
+    "build": "tsc --noEmit -p frontend/tsconfig.json && vite build",
+    "preview": "vite preview --host 0.0.0.0",
+    "check": "npm run compile && npm run typecheck && npm test && npm run test:ui && npm run build",
+    "format": "prettier --write .",
+    "format:check": "prettier --check ."
   },
-  "author": "Gregory",
-  "license": "ISC",
+  "dependencies": {
+    "@fontsource-variable/dm-sans": "5.3.0",
+    "@openzeppelin/contracts": "5.6.1",
+    "ethers": "6.17.0",
+    "lucide-react": "1.41.0",
+    "react": "19.2.8",
+    "react-dom": "19.2.8"
+  },
   "devDependencies": {
-    "lite-server": "^2.3.0"
+    "@nomicfoundation/hardhat-ethers": "4.0.15",
+    "@nomicfoundation/hardhat-ethers-chai-matchers": "3.0.11",
+    "@nomicfoundation/hardhat-mocha": "3.1.0",
+    "@nomicfoundation/hardhat-network-helpers": "3.0.11",
+    "@nomicfoundation/hardhat-typechain": "3.1.1",
+    "@playwright/test": "1.63.0",
+    "@types/chai": "^5.2.2",
+    "@types/mocha": "^10.0.10",
+    "@types/node": "^22.19.0",
+    "@types/react": "^19.2.0",
+    "@types/react-dom": "^19.2.0",
+    "@vitejs/plugin-react": "6.1.1",
+    "chai": "^6.2.2",
+    "hardhat": "3.15.0",
+    "mocha": "^11.7.5",
+    "prettier": "3.9.6",
+    "solc": "0.8.30",
+    "typescript": "5.9.3",
+    "vite": "8.2.2",
+    "vitest": "5.0.0"
+  },
+  "overrides": {
+    "mocha": {
+      "diff": "^8.0.3",
+      "serialize-javascript": "^7.1.1"
+    },
+    "solc": {
+      "tmp": "^0.2.7"
+    }
   }
 }
