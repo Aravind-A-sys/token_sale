@@ -1,61 +1,13 @@
-pragma solidity ^0.4.2;
+// SPDX-License-Identifier: ISC
+pragma solidity ^0.8.30;
 
-contract DappToken {
-    string  public name = "DApp Token";
-    string  public symbol = "DAPP";
-    string  public standard = "DApp Token v1.0";
-    uint256 public totalSupply;
+import {ERC20} from "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 
-    event Transfer(
-        address indexed _from,
-        address indexed _to,
-        uint256 _value
-    );
+/// @notice Fixed-supply DAPP token. There are no post-deployment mint privileges.
+contract DappToken is ERC20 {
+    uint256 public constant INITIAL_SUPPLY = 1_000_000 * 1e18;
 
-    event Approval(
-        address indexed _owner,
-        address indexed _spender,
-        uint256 _value
-    );
-
-    mapping(address => uint256) public balanceOf;
-    mapping(address => mapping(address => uint256)) public allowance;
-
-    function DappToken (uint256 _initialSupply) public {
-        balanceOf[msg.sender] = _initialSupply;
-        totalSupply = _initialSupply;
-    }
-
-    function transfer(address _to, uint256 _value) public returns (bool success) {
-        require(balanceOf[msg.sender] >= _value);
-
-        balanceOf[msg.sender] -= _value;
-        balanceOf[_to] += _value;
-
-        Transfer(msg.sender, _to, _value);
-
-        return true;
-    }
-
-    function approve(address _spender, uint256 _value) public returns (bool success) {
-        allowance[msg.sender][_spender] = _value;
-
-        Approval(msg.sender, _spender, _value);
-
-        return true;
-    }
-
-    function transferFrom(address _from, address _to, uint256 _value) public returns (bool success) {
-        require(_value <= balanceOf[_from]);
-        require(_value <= allowance[_from][msg.sender]);
-
-        balanceOf[_from] -= _value;
-        balanceOf[_to] += _value;
-
-        allowance[_from][msg.sender] -= _value;
-
-        Transfer(_from, _to, _value);
-
-        return true;
+    constructor(address initialOwner) ERC20("DApp Token", "DAPP") {
+        _mint(initialOwner, INITIAL_SUPPLY);
     }
 }

@@ -1,0 +1,12 @@
+legacy/
+node_modules/
+artifacts/
+cache/
+dist/
+types/
+coverage/
+frontend/public/deployment.json
+package-lock.json
+playwright-report/
+test-results/
+contracts/

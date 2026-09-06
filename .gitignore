@@ -1,0 +1,17 @@
+node_modules/
+artifacts/
+cache/
+coverage/
+dist/
+typechain-types/
+frontend/public/deployment.json
+frontend/public/deployment.json.tmp
+playwright-report/
+test-results/
+.env
+.env.*
+!.env.example
+*.log
+.DS_Store
+types/ethers-contracts/
+.cache/
